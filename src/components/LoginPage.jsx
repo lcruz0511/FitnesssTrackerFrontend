@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { registerUser } from "../api-adapter";
+import { loginUser, registerUser } from "../api-adapter";
 
 const LoginPage = ({
     setUsernameInput,
@@ -15,13 +15,15 @@ const LoginPage = ({
 
     function submitRegister()  {
         console.log(usernameInput, "testing username on submit")
-        registerUser(usernameInput, passwordInput)
+        registerUser(usernameInput, passwordInput, setToken)
     }
 
     useEffect(() => {
-        console.log(usernameInput, "is the username")
-        console.log(passwordInput, "is the password")
       }, [usernameInput, passwordInput]);
+
+    function submitLogin(){
+      loginUser(usernameInput, passwordInput)
+    }  
 
 
     return(
