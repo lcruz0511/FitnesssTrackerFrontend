@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {Link, NavLink} from "react-router-dom"
 
 const Routines= (props)=>{
@@ -18,9 +18,13 @@ const Routines= (props)=>{
         )
     }
 
-
     return(
+        <h1>Routines</h1>
     )
+
+}
+
+ 
 
 
 export default Routines;

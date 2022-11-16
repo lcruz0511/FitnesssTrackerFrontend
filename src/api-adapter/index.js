@@ -15,21 +15,22 @@ export async function getRoutines(token){
 };
 
 
-// export async function registerUser(username, password){
-//     const options ={
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json,"
-//         },
-//         body: JSON.stringify({
-//             user: {
-//                 username,
-//                 password,
-//             }
-//         })
-//     };
-//     const response = await fetch(`${baseUrl}/users/register`, options)
-//     const result = await response.json();
 
-//     return result.data;
-// }
+export async function registerUser(username, password){
+
+fetch('http://fitnesstrac-kr.herokuapp.com/api/users/register', {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    username: `${username}`,
+    password: `${password}`
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result, "result from registration");
+  })
+  .catch(console.error);
+
+}
