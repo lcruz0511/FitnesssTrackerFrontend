@@ -3,6 +3,8 @@ import React, {useState, useEffect} from "react";
 import Navbar from "./Navbar";
 import LoginPage from "./LoginPage";
 import Routines from "./Routines";
+import Activities from "./Activities";
+import MyRoutines from "./MyRoutines";
 
 
 import{
@@ -22,7 +24,7 @@ const Main = () => {
 
     const router = createBrowserRouter(
         createRoutesFromElements(
-          <Route path="/" element={<Navbar />}>
+          <Route path="/" element={<Navbar />} >
             <Route
               path="login"
               element={
@@ -41,7 +43,9 @@ const Main = () => {
             ></Route>
     
             <Route path="/routines" element={<Routines />}></Route>
-    
+         <Route path="/activities" element={<Activities />}></Route>
+         <Route path="/myroutines" element={<MyRoutines />}></Route>
+            
             {/* <Route
               path="messages"
               element={<Messages loginToken={loginToken} />}

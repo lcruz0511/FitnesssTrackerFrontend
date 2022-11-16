@@ -28,19 +28,20 @@ fetch('http://fitnesstrac-kr.herokuapp.com/api/users/register', {
   })
 }).then(response => response.json())
   .then(result => {
-    console.log(result, "result from registration");
     setToken(result.token)
-    console.log(result.token, 'result from result.token')
+    if (result.token){
+        localStorage.removeItem("token");
+        localStorage.setItem("token", result.token)
+        localStorage.setItem("username", result.user.username)
+      }
   })
   .catch(console.error);
 
-  if (result.token){
-    localStorage.removeItem("token");
-    localStorage.setItem("token", token)
-  }
+ 
 }
 
 export async function loginUser(username, password){
+    console.log(username)
     fetch('http://fitnesstrac-kr.herokuapp.com/api/users/login',  {
         method: "POST",
         headers: {
@@ -52,14 +53,79 @@ export async function loginUser(username, password){
         })
       }).then(response => response.json())
         .then(result => {
-          console.log(result);
+            console.log(result)
+            localStorage.setItem("username", result.user.username)
+          localStorage.setItem("token", result.token)
         })
         .catch(console.error);
 
-        
-            
-            console.log(result.token, "result token")
-            localStorage.setItem("token", result.token)
-          
-        
+}
+
+export async function getRoutines(setAllRoutines){
+    fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(response => response.json())
+        .then(result => {
+        //   console.log(result, "is routines from index.js");
+          if (result)   {
+            setAllRoutines(result)
+            // return(result)
+          }
+        })
+        .catch(console.error);
+}
+
+export async function getActivities(setActivities){
+    fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+    setActivities(result)
+    return(result)
+  })
+  .catch(console.error);
+}
+
+export async function getMyRoutines(setMyRoutines) {
+    let tempname = localStorage.getItem("username");
+    let temptoken = localStorage.getItem("token");
+    console.log(tempname, temptoken )
+
+    fetch(`http://fitnesstrac-kr.herokuapp.com/api/users/${tempname}/routines`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${temptoken}`
+        },
+      }).then(response => response.json())
+        .then(result => {
+          console.log(result, "result of get my routines");
+          setMyRoutines(result)
+        })
+        .catch(console.error);
+}
+
+export async function addRoutine(name, goal, isPublic)  {
+    let temptoken = localStorage.getItem("token");
+
+    fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${temptoken}`
+  },
+  body: JSON.stringify({
+    name: `${name}`,
+    goal: `${goal}`,
+    isPublic: `${isPublic}`
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
 }
