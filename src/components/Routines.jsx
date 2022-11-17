@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {Link, NavLink} from "react-router-dom"
 import { getRoutines } from "../api-adapter";
+import "./Style.css"
 
 
 const Routines= (props)=>{
@@ -45,7 +46,11 @@ const Routines= (props)=>{
             <div className='right' >
                 {routinesToDisplay.map((routine)=>{
                     return (
-                        <div className="routineName">{routine.name}</div>
+                        <div className="routineBox">
+                            <div className="routineName">Name: {routine.name}</div>
+                            <div className="routineGoal">Goal: {routine.goal}</div>
+
+                        </div>
                     )
                 })}
             </div>
