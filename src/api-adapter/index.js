@@ -174,15 +174,19 @@ export async function addActivity(name, description, setAddActivityMessage) {
   .catch(console.error);
 }
 
-export async function deleteRoutine(id, token){
-  const options={
+export async function deleteRoutine(id, token, setDeleteMessage){
+  fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${id}`, {
     method: "DELETE",
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    },
-  };
-  const response = await fetch(`${baseUrl}/routines/${id}`, options);
-  const result = await response.json();
-  return result;
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  }).then(response => response.json())
+    .then(result => {
+      console.log(result);
+      if (result.success == true) {
+        setDeleteMessage("Message deleted succesfully!")
+      }
+    })
+    .catch(console.error);
 }
