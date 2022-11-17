@@ -10,13 +10,7 @@ const Activities = (props) =>       {
     function submitActivity()   {
         addActivity(newName, newDescription, setAddActivityMessage)
     }
-
-    // useEffect(() => {
         
-    //     }
- 
-    //    }, [addActivityMessage]);
-    
     const [activities, setActivities] = useState([]);
     const [searchTerm, setSearchTerm]= useState("");
     const [newName, setNewName] = useState("");

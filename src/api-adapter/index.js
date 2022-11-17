@@ -173,3 +173,16 @@ export async function addActivity(name, description, setAddActivityMessage) {
   })
   .catch(console.error);
 }
+
+export async function deleteRoutine(id, token){
+  const options={
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+  };
+  const response = await fetch(`${baseUrl}/routines/${id}`, options);
+  const result = await response.json();
+  return result;
+}

@@ -1,45 +1,48 @@
 import React, { useEffect, useState } from "react";
 import {Link, NavLink} from "react-router-dom"
-import { getMyRoutines, addRoutine } from "../api-adapter";
+import { getMyRoutines, addRoutine, deleteRoutine } from "../api-adapter";
 
-const MyRoutines = () =>    {
+const MyRoutines = (props) =>    {
+
+    function submitRoutine()    {
+        addRoutine(name, goal, isPublic, setGetRoutinesMessage)
+    }
     const [name, setname] = useState("")
     const [goal, setgoal] = useState("")
     const [isPublic, setIsPublic] = useState("")
     const [myRoutines, setMyRoutines] = useState("")
     const [getRoutinesMessage, setGetRoutinesMessage] = useState("")
 
-    function submitRoutine()    {
-        addRoutine(name, goal, isPublic, setGetRoutinesMessage)
-    }
 
-useEffect(()=>{
-    async function fetchRoutines(){
-        const placeholder = await getMyRoutines(setMyRoutines);
-    }
-    fetchRoutines();
-}, [])
+    useEffect(()=>{
+        async function fetchRoutines(){
+            const placeholder = await getMyRoutines(setMyRoutines);
+            console.log(myRoutines, "is all my routines")
+        }
+        fetchRoutines();
+    }, [])
+    async function handleDelete(event){
+        event.preventDefault();
+        const toDelete = event.target.id;
+        const token = localStorage.getItem("token");
+        const deleted = await deleteRoutine(toDelete, token)
+}
 
 console.log(myRoutines, "this is my routines")
 
 // create routine is workin
 return(
     <div id="wholecontainer">
-        
-    {/* {myRoutines.map(
-        ({
-            activities,
-            creatorId,
-            creatorName,
-            goal,
-            id,
-            isPublic,
-            name
-    )} =>   (
+        <div className="rightRoutine">
+            {}
+
+        </div>
+       
+
         <div>
 
         </div>
-    ) */}
+     
         
 
         <h1>My Routines</h1>
@@ -67,6 +70,15 @@ return(
         />
         <button onClick={() => submitRoutine()}>Submit new routine</button>
         <div id="submitMessage">{getRoutinesMessage}</div>
+        <button
+        className="deleteButton"
+        id={myRoutines._id ? `${routine._id}` : null}
+        onClick={(event)=>{
+            handleDelete(event)
+        }}
+        >
+            Delete Routine
+        </button>
     </div>
 )
 }
