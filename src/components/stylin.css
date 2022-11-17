@@ -1,0 +1,17 @@
+#logo   {
+    float: left;
+    
+}
+
+#navbar {
+    display:flex;
+    flex-direction: row;
+    padding-left: 900px;
+    justify-content: space-between;
+    padding-right: 100px;
+    
+}
+
+#wholething{
+  
+}

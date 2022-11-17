@@ -2,11 +2,27 @@ import React, {useEffect, useState} from "react"
 import { getActivities } from "../api-adapter";
 import "./Style.css";
 import Routines from "./Routines";
+import { addActivity } from "../api-adapter";
 
-const Activities = (props) =>
-{
+
+const Activities = (props) =>       {
+
+    function submitActivity()   {
+        addActivity(newName, newDescription, setAddActivityMessage)
+    }
+
+    // useEffect(() => {
+        
+    //     }
+ 
+    //    }, [addActivityMessage]);
+    
     const [activities, setActivities] = useState([]);
     const [searchTerm, setSearchTerm]= useState("");
+    const [newName, setNewName] = useState("");
+    const [newDescription, setNewDescription] = useState("");
+    const [addActivityMessage, setAddActivityMessage] = useState("")
+    console.log(newName)
 
     useEffect(() => {
        async function fetchActivities(){
@@ -34,6 +50,29 @@ const Activities = (props) =>
 //through
     return(
         <div>
+            <div id="createActivity">
+                <h2>Create new activity</h2>
+                <h3>Name: <input
+                    type="text"
+                    className="searchBar"
+                    placeholder="..."
+                    value={newName}
+                    onChange={(event)=>{
+                        setNewName(event.target.value)
+                    }}
+                    /></h3>
+                <h3>Description: <input
+                    type="text"
+                    className="searchBar"
+                    placeholder="..."
+                    value={newDescription}
+                    onChange={(event)=>{
+                        setNewDescription(event.target.value)
+                    }}
+                    /></h3>
+                <button onClick={() => submitActivity()}>Submit</button>
+                <h4>{addActivityMessage}</h4>
+            </div>
             <div className="searchBar">
                 <p className="titleText">Search Activities: </p>
                 <span className="Search">
@@ -54,11 +93,12 @@ const Activities = (props) =>
                         <div className="ActivitiesBox">
                             <div className="acitivityName">Name: {activity.name}</div>
                             <div className="acitivityDescription">Description: {activity.description}</div>
-
+                            
                         </div>
                     )
                 })}
             </div>
+            
         </div>
     )
 }
