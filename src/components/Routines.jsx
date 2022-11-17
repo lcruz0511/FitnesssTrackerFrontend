@@ -49,6 +49,8 @@ const Routines= (props)=>{
                         <div className="routineBox">
                             <div className="routineName">Name: {routine.name}</div>
                             <div className="routineGoal">Goal: {routine.goal}</div>
+                            <div className="routineName">Creator: {routine.creatorName}</div>
+
 
                         </div>
                     )
