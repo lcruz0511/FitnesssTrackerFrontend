@@ -129,3 +129,29 @@ export async function addRoutine(name, goal, isPublic)  {
   })
   .catch(console.error);
 }
+
+export async function addActivity(name, description, setAddActivityMessage) {
+  let temptoken = localStorage.getItem("token");
+
+  fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${temptoken}`
+  },
+  body: JSON.stringify({
+    name: `${name}`,
+    description: `${description}`
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+    if (result.error) {
+      setAddActivityMessage(result.error)
+    }
+    if (result.id)  {
+      setAddActivityMessage(`Activity "${name}" has been created succesfully!`)
+    }
+  })
+  .catch(console.error);
+}
