@@ -32,14 +32,14 @@ const Navbar = () => {
 
           {/*////////THIS IS WHAT WAS CAUSING THE ERRORS*/}
 
-          {/* {tempUsername.length ? (
+          {tempUsername.length ? (
             <Link to="/myroutines">
               <h2 className="rightside">My Routines</h2>
             </Link>
           ) 
           : (
             <div />
-          )} */}
+          )}
 
           {/* <Link to="/login">
             <h2 className="rightside" onClick={() => logoutUser()}>
