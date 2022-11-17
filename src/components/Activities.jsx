@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react"
 import { getActivities } from "../api-adapter";
+import Routines from "./Routines";
 
-const Activities = () =>    {
-    const [activities, setActivities] = useState("noactivities");
+const Activities = () =>
+{
+    const [activities, setActivities] = useState("");
 
     useEffect(() => {
        async function fetchActivities(){
@@ -22,11 +24,7 @@ console.log(activities, "is all activities")
 //remember that all this data is stored in an array, which is what map is good at iterating
 //through
     return(
-<div>
-    <h1>Activities</h1>
-    
-</div>
+        <h1>Activities</h1>
     )
 }
-
 export default Activities;

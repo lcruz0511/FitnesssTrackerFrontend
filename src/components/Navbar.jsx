@@ -4,7 +4,7 @@ import { Outlet, Link } from "react-router-dom";
 
 const Navbar = () => {
   const tempUsername = localStorage.getItem("username");
-  console.log(tempUsername, "username from local storage")
+  // console.log(tempUsername, "username from local storage")
 
   function logoutUser() {
     // localStorage.setItem("username", "");
@@ -29,13 +29,17 @@ const Navbar = () => {
             <h2 className="rightside">Login</h2>
           </Link> */}
 
-          {tempUsername.length ? (
+
+          {/*////////THIS IS WHAT WAS CAUSING THE ERRORS*/}
+
+          {/* {tempUsername.length ? (
             <Link to="/myroutines">
               <h2 className="rightside">My Routines</h2>
             </Link>
-          ) : (
+          ) 
+          : (
             <div />
-          )}
+          )} */}
 
           {/* <Link to="/login">
             <h2 className="rightside" onClick={() => logoutUser()}>
