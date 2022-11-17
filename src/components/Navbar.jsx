@@ -3,6 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 
 
 const Navbar = () => {
+  
   const tempUsername = localStorage.getItem("username");
   // console.log(tempUsername, "username from local storage")
 
@@ -32,7 +33,7 @@ const Navbar = () => {
 
           {/*////////THIS IS WHAT WAS CAUSING THE ERRORS*/}
 
-          {tempUsername.length ? (
+          {tempUsername ? (
             <Link to="/myroutines">
               <h2 className="rightside">My Routines</h2>
             </Link>

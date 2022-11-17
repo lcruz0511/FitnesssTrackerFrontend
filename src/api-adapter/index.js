@@ -15,7 +15,7 @@ const baseUrl= "https://fitnesstrac-kr.herokuapp.com/api"
 // };
 
 
-export async function registerUser(username, password, setToken){
+export async function registerUser(username, password, setToken, setRegisterMessage){
 
 fetch('http://fitnesstrac-kr.herokuapp.com/api/users/register', {
   method: "POST",
@@ -28,11 +28,18 @@ fetch('http://fitnesstrac-kr.herokuapp.com/api/users/register', {
   })
 }).then(response => response.json())
   .then(result => {
+    console.log(result)
     setToken(result.token)
     if (result.token){
         localStorage.removeItem("token");
         localStorage.setItem("token", result.token)
         localStorage.setItem("username", result.user.username)
+      }
+      if (result.message) {
+        setRegisterMessage(result.message)
+      }
+      if (result.error) {
+        setRegisterMessage(result.error)
       }
   })
   .catch(console.error);
@@ -40,8 +47,8 @@ fetch('http://fitnesstrac-kr.herokuapp.com/api/users/register', {
  
 }
 
-export async function loginUser(username, password){
-    console.log(username)
+export async function loginUser(username, password, setLoginSubmitMessage){
+  
     fetch('http://fitnesstrac-kr.herokuapp.com/api/users/login',  {
         method: "POST",
         headers: {
@@ -53,7 +60,12 @@ export async function loginUser(username, password){
         })
       }).then(response => response.json())
         .then(result => {
-            console.log(result)
+          if (result.error) {
+            setLoginSubmitMessage(result.error)
+          }
+            if (result.message) {
+              setLoginSubmitMessage(result.message)
+            }
             localStorage.setItem("username", result.user.username)
           localStorage.setItem("token", result.token)
         })
@@ -109,7 +121,7 @@ export async function getMyRoutines(setMyRoutines) {
         .catch(console.error);
 }
 
-export async function addRoutine(name, goal, isPublic)  {
+export async function addRoutine(name, goal, isPublic, setGetRoutinesMessage)  {
     let temptoken = localStorage.getItem("token");
 
     fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
@@ -126,6 +138,12 @@ export async function addRoutine(name, goal, isPublic)  {
 }).then(response => response.json())
   .then(result => {
     console.log(result);
+    if (result.error) {
+      setGetRoutinesMessage(result.error)
+    }
+    if (result.id)  {
+      setGetRoutinesMessage(`Routine titled ${name} has been succesfully created!`)
+    }
   })
   .catch(console.error);
 }

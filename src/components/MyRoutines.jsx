@@ -7,9 +7,10 @@ const MyRoutines = () =>    {
     const [goal, setgoal] = useState("")
     const [isPublic, setIsPublic] = useState("")
     const [myRoutines, setMyRoutines] = useState("")
+    const [getRoutinesMessage, setGetRoutinesMessage] = useState("")
 
     function submitRoutine()    {
-        addRoutine(name, goal, isPublic)
+        addRoutine(name, goal, isPublic, setGetRoutinesMessage)
     }
 
 useEffect(()=>{
@@ -65,6 +66,7 @@ return(
           onChange={(event) => setIsPublic(event.target.value)}
         />
         <button onClick={() => submitRoutine()}>Submit new routine</button>
+        <div id="submitMessage">{getRoutinesMessage}</div>
     </div>
 )
 }

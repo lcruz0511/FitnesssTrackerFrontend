@@ -13,16 +13,21 @@ const LoginPage = ({
 
 }) => {
 
+  const [registerMessage, setRegisterMessage] = useState("")
+  const [loginSubmitMessage, setLoginSubmitMessage] = useState("")
+
     function submitRegister()  {
         console.log(usernameInput, "testing username on submit")
-        registerUser(usernameInput, passwordInput, setToken)
+        registerUser(usernameInput, passwordInput, setToken, setRegisterMessage)
+        setLoginSubmitMessage("")
     }
 
     useEffect(() => {
       }, [usernameInput, passwordInput]);
 
     function submitLogin(){
-      loginUser(usernameInput, passwordInput)
+      loginUser(usernameInput, passwordInput, setLoginSubmitMessage)
+      setRegisterMessage("")
     }  
 
 
@@ -55,6 +60,7 @@ const LoginPage = ({
         <button onClick={() => submitLogin()}>Login</button>
         <button onClick={() => submitRegister()}>Register</button>
       </div>
+      <div>{[registerMessage, loginSubmitMessage]}</div>
     </div>
 
     )
