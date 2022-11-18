@@ -1,0 +1,16 @@
+#navbar{
+    display: flex;
+    flex-direction: row;
+}
+
+
+#navBar{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.rightside{
+    padding: 10px;
+    display: flex;
+}
