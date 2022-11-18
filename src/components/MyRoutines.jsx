@@ -2,11 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { getMyRoutines, addRoutine, deleteRoutine } from "../api-adapter";
 import EditRoutine from "./EditRoutine";
+import "./MyRoutines.css"
+import { updateRoutine } from "../api-adapter";
 
 const MyRoutines = (props) => {
   function submitRoutine() {
     addRoutine(name, goal, isPublic, setGetRoutinesMessage);
   }
+
+  const [routineID, setRoutineID] = useState("");
+  const [updatedName, setUpdatedName] = useState("");
+  const [updatedGoal, setUpdatedGoal] = useState("");
+
+  console.log(updatedName, "updated name")
+
   const [name, setname] = useState("");
   const [goal, setgoal] = useState("");
   const [isPublic, setIsPublic] = useState("");
@@ -19,18 +28,16 @@ const MyRoutines = (props) => {
   const [goalEditor, setGoalEditor] = useState("");
   const [routineEditor, setRoutineEditor] = useState("");
   const [idEditor, setIdEditor] = useState("");
-  const [formDetails, setFormDetails]=useState({
+  const [formDetails, setFormDetails] = useState({
     name: "",
-    goal: ""
-  })
+    goal: "",
+  });
 
-  function routineClicked(
-    name, goal, routine, id
-  ) {
-    setNameEditor(name)
-    setGoalEditor(goal)
-    setRoutineEditor(routine)
-    setIdEditor(id)
+  function routineClicked(name, goal, routine, id) {
+    setNameEditor(name);
+    setGoalEditor(goal);
+    setRoutineEditor(routine);
+    setIdEditor(id);
   }
 
   useEffect(() => {
@@ -41,21 +48,23 @@ const MyRoutines = (props) => {
     fetchRoutines();
   }, []);
 
-  function handleChange(event){
+  function handleChange(event) {
     event.preventDefault();
     const toUpdate = event.target.id;
     const update = event.target.value;
-    const updatedForm = {... formDetails, [toUpdate]: update};
-    setFormDetails(updatedForm)
+    const updatedForm = { ...formDetails, [toUpdate]: update };
+    setFormDetails(updatedForm);
   }
 
-  async function handleSubmit(event){
+  async function submitUpdate() {
+    const tempToken = localStorage.getItem("token")
+const placeholder = await updateRoutine(updatedName, routineID, updatedGoal, tempToken)
+  }
+
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    const updatedRoutine = await updateRoutine(
-      formDetails,
-      routine.id
-    )
+    const updatedRoutine = await updateRoutine(formDetails, routine.id);
   }
 
   async function handleDelete(event) {
@@ -71,33 +80,65 @@ const MyRoutines = (props) => {
   // create routine is workin
   return (
     <div id="wholecontainer">
-     
       <h1>My Routines</h1>
-      <h1>Create routine: </h1>
-      <h4>Routine name:</h4>
-      <input
-        type="text"
-        required
-        value={name}
-        onChange={(event) => setname(event.target.value)}
-      />
-      <h4>Routine goal:</h4>
-      <input
-        type="text"
-        required
-        value={goal}
-        onChange={(event) => setgoal(event.target.value)}
-      />
-      <h4>Privacy status (true or false)</h4>
-      <input
-        type="text"
-        required
-        value={isPublic}
-        onChange={(event) => setIsPublic(event.target.value)}
-      />
-      <div id="deleteMessage">{deleteMessage}</div>
-      <button onClick={() => submitRoutine()}>Submit new routine</button>
-      <div id="submitMessage">{getRoutinesMessage}</div>
+        <div id="twoForms">
+          <div id="firstForm">
+          <h1>Create routine: </h1>
+          <h4>Routine name:</h4>
+          <input
+            type="text"
+            required
+            value={name}
+            onChange={(event) => setname(event.target.value)}
+          />
+          <h4>Routine goal:</h4>
+          <input
+            type="text"
+            required
+            value={goal}
+            onChange={(event) => setgoal(event.target.value)}
+          />
+          <h4>Privacy status (true or false)</h4>
+          <input
+            type="text"
+            required
+            value={isPublic}
+            onChange={(event) => setIsPublic(event.target.value)}
+          />
+          <div id="deleteMessage">{deleteMessage}</div>
+          <button onClick={() => submitRoutine()}>Submit new routine</button>
+          <div id="submitMessage">{getRoutinesMessage}</div>
+        </div>
+       
+       {/* second form is here */}
+        <div id="secondForm">
+        <h1>Update routine: </h1>
+          <h4>Routine ID:</h4>
+          <input
+            type="text"
+            required
+            value={routineID}
+            onChange={(event) => setRoutineID(event.target.value)}
+          />
+          <h4>Updated name:</h4>
+          <input
+            type="text"
+            required
+            value={updatedName}
+            onChange={(event) => setUpdatedName(event.target.value)}
+          />
+          <h4>Updated goal</h4>
+          <input
+            type="text"
+            required
+            value={updatedGoal}
+            onChange={(event) => setUpdatedGoal(event.target.value)}
+          />
+          {/* <div id="deleteMessage">{deleteMessage}</div> */}
+          <button onClick={() => submitUpdate()}>Submit updated routine</button>
+          {/* <div id="submitMessage">{getRoutinesMessage}</div> */}
+        </div>
+        </div>
 
       <div id="myRoutines">
         {myRoutines.map((routine) => {
@@ -105,20 +146,8 @@ const MyRoutines = (props) => {
             <div className="routineBox">
               <div className="routineName">Name: {routine.name}</div>
               <div className="routineGoal">Goal: {routine.goal}</div>
-
-              <div>
-                {""}
-                  <form onChange={handleChange} onSubmit={handleSubmit}>
-                    <h3 className="editName"> Edit Routine </h3>
-                    <div className="editForm">
-                      <label>Name: </label>
-                      <input id="name" defaultValue={formDetails.name}/>
-                      <label>Goal: </label>
-                      <input id="goal" defaultValue={formDetails.goal}/>
-
-                    </div>
-                  </form>
-              </div>
+              <div className="routineGoal">ID: {routine.id}</div>
+              <div>{""}</div>
 
               <button
                 className="deleteButton"
@@ -131,28 +160,7 @@ const MyRoutines = (props) => {
               </button>
 
               {/* GOTTA FIGURE OUT A WAY TO GET THIS DATA TO THE EDIT POST COMPONENT! */}
-              <Link  onClick={() =>
-           routineClicked(
-            routine.name,
-            routine.goal,
-            routine,
-            routine.id
-           )}to="/EditRoutine">
-              <button
-                className="editButton"
-                id={routine.id ? `${routine.id}` : null}
-                onClick={(event) => {
-                 return(
-                    setEditPage(
-                        <div>hi hi hi hi hi</div>
-                    )
-                 )
-                }}
-              >
-                Edit Routine
-              </button>
-              
-              </Link>
+
               {/* <div id="editPage">{editPage}</div> */}
             </div>
           );

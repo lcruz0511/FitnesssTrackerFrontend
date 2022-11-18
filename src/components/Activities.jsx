@@ -1,11 +1,16 @@
 import React, {useEffect, useState} from "react"
 import { getActivities } from "../api-adapter";
 import Routines from "./Routines";
-import { addActivity } from "../api-adapter";
+import { addActivity, updateActivity } from "../api-adapter";
 import "./Style.css";
 
 
 const Activities = (props) =>       {
+
+    function submitUpdate() {
+        const tempToken = localStorage.getItem("token")
+        updateActivity(updatedID, updatedName, updatedDescription, tempToken)
+    }
 
     function submitActivity()   {
         addActivity(newName, newDescription, setAddActivityMessage)
@@ -16,7 +21,13 @@ const Activities = (props) =>       {
     const [newName, setNewName] = useState("");
     const [newDescription, setNewDescription] = useState("");
     const [addActivityMessage, setAddActivityMessage] = useState("")
-    console.log(newName)
+   
+
+    const [updatedID, setUpdatedID] = useState("");
+    const [updatedName, setUpdatedName] = useState("");
+    const [updatedDescription, setUpdatedDescription] = useState("");
+    console.log(updatedName)
+    
 
     useEffect(() => {
        async function fetchActivities(){
@@ -44,6 +55,7 @@ const Activities = (props) =>       {
 //through
     return(
         <div>
+            <div id="twoForms">
             <div id="createActivity">
                 <h2>Create new activity</h2>
                 <h3>Name: <input
@@ -67,6 +79,36 @@ const Activities = (props) =>       {
                 <button onClick={() => submitActivity()}>Submit</button>
                 <h4>{addActivityMessage}</h4>
             </div>
+
+            <div id="secondForm">
+        <h1>Update activity: </h1>
+          <h4>Activity ID:</h4>
+          <input
+            type="text"
+            required
+            value={updatedID}
+            onChange={(event) => setUpdatedID(event.target.value)}
+          />
+          <h4>Updated name:</h4>
+          <input
+            type="text"
+            required
+            value={updatedName}
+            onChange={(event) => setUpdatedName(event.target.value)}
+          />
+          <h4>Updated description:</h4>
+          <input
+            type="text"
+            required
+            value={updatedDescription}
+            onChange={(event) => setUpdatedDescription(event.target.value)}
+          />
+          {/* <div id="deleteMessage">{deleteMessage}</div> */}
+          <button onClick={() => submitUpdate()}>Submit updated activity</button>
+          {/* <div id="submitMessage">{getRoutinesMessage}</div> */}
+        </div>
+
+            </div>
             <div className="searchBar">
                 <p className="titleText">Search Activities: </p>
                 <span className="Search">
@@ -87,7 +129,7 @@ const Activities = (props) =>       {
                         <div className="ActivitiesBox">
                             <div className="activityName">Name: {activity.name}</div>
                             <div className="activityDescription">Description: {activity.description}</div>
-                            
+                            <div className="activityID">Activity ID: {activity.id}</div>
                         </div>
                     )
                 })}

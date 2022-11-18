@@ -192,14 +192,34 @@ export async function deleteRoutine(id, token, setDeleteMessage){
 }
 
 export async function updateRoutine(name, id, goal, token){
+  console.log(name, id, goal, token, "results passed into the function")
   fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${id}`, {
   method: "PATCH",
   headers:{
+    'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`
   },
   body: JSON.stringify({
-    name: `${name}`,
-    goal: `${goal}`
+    name,
+    goal
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+}
+
+export async function updateActivity(id, name, description, token){
+  fetch(`http://fitnesstrac-kr.herokuapp.com/api/activities/${id}`, {
+  method: "PATCH",
+  headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  },
+  body: JSON.stringify({
+    name,
+    description
   })
 }).then(response => response.json())
   .then(result => {
