@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react"
 import { getActivities } from "../api-adapter";
-import "./Style.css";
 import Routines from "./Routines";
 import { addActivity } from "../api-adapter";
+import "./Style.css";
 
 
 const Activities = (props) =>       {
@@ -85,8 +85,8 @@ const Activities = (props) =>       {
                 {activitiesToDisplay.map((activity)=>{
                     return(
                         <div className="ActivitiesBox">
-                            <div className="acitivityName">Name: {activity.name}</div>
-                            <div className="acitivityDescription">Description: {activity.description}</div>
+                            <div className="activityName">Name: {activity.name}</div>
+                            <div className="activityDescription">Description: {activity.description}</div>
                             
                         </div>
                     )
