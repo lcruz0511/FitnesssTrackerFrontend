@@ -19,6 +19,10 @@ const MyRoutines = (props) => {
   const [goalEditor, setGoalEditor] = useState("");
   const [routineEditor, setRoutineEditor] = useState("");
   const [idEditor, setIdEditor] = useState("");
+  const [formDetails, setFormDetails]=useState({
+    name: "",
+    goal: ""
+  })
 
   function routineClicked(
     name, goal, routine, id
@@ -36,6 +40,24 @@ const MyRoutines = (props) => {
     }
     fetchRoutines();
   }, []);
+
+  function handleChange(event){
+    event.preventDefault();
+    const toUpdate = event.target.id;
+    const update = event.target.value;
+    const updatedForm = {... formDetails, [toUpdate]: update};
+    setFormDetails(updatedForm)
+  }
+
+  async function handleSubmit(event){
+    event.preventDefault();
+
+    const updatedRoutine = await updateRoutine(
+      formDetails,
+      routine.id
+    )
+  }
+
   async function handleDelete(event) {
     event.preventDefault();
     const toDelete = event.target.id;
@@ -83,6 +105,20 @@ const MyRoutines = (props) => {
             <div className="routineBox">
               <div className="routineName">Name: {routine.name}</div>
               <div className="routineGoal">Goal: {routine.goal}</div>
+
+              <div>
+                {""}
+                  <form onChange={handleChange} onSubmit={handleSubmit}>
+                    <h3 className="editName"> Edit Routine </h3>
+                    <div className="editForm">
+                      <label>Name: </label>
+                      <input id="name" defaultValue={formDetails.name}/>
+                      <label>Goal: </label>
+                      <input id="goal" defaultValue={formDetails.goal}/>
+
+                    </div>
+                  </form>
+              </div>
 
               <button
                 className="deleteButton"

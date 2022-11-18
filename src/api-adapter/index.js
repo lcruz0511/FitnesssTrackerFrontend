@@ -190,3 +190,20 @@ export async function deleteRoutine(id, token, setDeleteMessage){
     })
     .catch(console.error);
 }
+
+export async function updateRoutine(name, id, goal, token){
+  fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${id}`, {
+  method: "PATCH",
+  headers:{
+    'Authorization': `Bearer ${token}`
+  },
+  body: JSON.stringify({
+    name: `${name}`,
+    goal: `${goal}`
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
+  })
+  .catch(console.error);
+}
