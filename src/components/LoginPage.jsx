@@ -28,6 +28,7 @@ const LoginPage = ({
     function submitLogin(){
       loginUser(usernameInput, passwordInput, setLoginSubmitMessage)
       setRegisterMessage("")
+      
     }  
 
 

@@ -7,3 +7,31 @@ div{
     flex-direction: row;
     justify-content: space-evenly;
 }
+
+#firstForm{
+    border: solid black;
+    padding: 20px;
+    padding-top: 0px;
+    border-radius: 20px;
+    background-color: white;
+    display:flex;
+    flex-direction: column;
+}
+
+#secondForm {
+    border: solid black;
+    padding: 20px;
+    padding-top: 0px;
+    border-radius: 20px;
+    background-color: white;
+    display:flex;
+    flex-direction: column;
+}
+
+#submitRoutine  {
+    margin-top: 18px;
+}
+
+#myRoutines {
+    display:flex;
+}

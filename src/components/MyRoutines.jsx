@@ -105,8 +105,8 @@ const placeholder = await updateRoutine(updatedName, routineID, updatedGoal, tem
             value={isPublic}
             onChange={(event) => setIsPublic(event.target.value)}
           />
-          <div id="deleteMessage">{deleteMessage}</div>
-          <button onClick={() => submitRoutine()}>Submit new routine</button>
+          
+          <button id="submitRoutine" onClick={() => submitRoutine()}>Submit new routine</button>
           <div id="submitMessage">{getRoutinesMessage}</div>
         </div>
        
@@ -135,11 +135,11 @@ const placeholder = await updateRoutine(updatedName, routineID, updatedGoal, tem
             onChange={(event) => setUpdatedGoal(event.target.value)}
           />
           {/* <div id="deleteMessage">{deleteMessage}</div> */}
-          <button onClick={() => submitUpdate()}>Submit updated routine</button>
+          <button id="submitRoutine" onClick={() => submitUpdate()}>Submit updated routine</button>
           {/* <div id="submitMessage">{getRoutinesMessage}</div> */}
         </div>
         </div>
-
+        <div id="deleteMessage">{deleteMessage}</div>
       <div id="myRoutines">
         {myRoutines.map((routine) => {
           return (

@@ -1,0 +1,25 @@
+#navbar {
+    display:flex;
+    flex-direction: row;
+    background-color: #7777;
+    margin-left: -10px;
+    padding-left: 22px;
+    border-bottom: 2px dashed black;
+    
+}
+#navBar {
+    display:flex;
+    flex-direction: row;
+    margin-left: 30px;
+    justify-content: space-evenly;
+    width: 650px;
+   
+}
+
+#wholeContainer {
+    background-color: rgb(240, 239, 239);
+    margin-top: -20px;
+    margin-left: -8px;
+    padding: 10px 10px;
+    margin-right: -8px;
+}
