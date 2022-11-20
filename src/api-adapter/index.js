@@ -68,6 +68,8 @@ export async function loginUser(username, password, setLoginSubmitMessage){
             }
             localStorage.setItem("username", result.user.username)
           localStorage.setItem("token", result.token)
+
+          
         })
         .catch(console.error);
 

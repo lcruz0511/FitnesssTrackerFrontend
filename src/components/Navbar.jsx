@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import { Outlet, Link } from "react-router-dom";
 import "./Navbar.css";
 
 
 const Navbar = () => {
+
+ const [logOutMessage, setLogoutMessage] = useState("")
   
   const tempUsername = localStorage.getItem("username");
   // console.log(tempUsername, "username from local storage")
@@ -43,9 +45,16 @@ const Navbar = () => {
           {/*////////THIS IS WHAT WAS CAUSING THE ERRORS*/}
 
           {tempUsername ? (
+            <div>
             <Link to="/myroutines">
               <h2 className="rightside">My Routines</h2>
             </Link>
+            <button onClick={logoutUser}>
+              Logout
+            </button>
+            <div>{logOutMessage}
+            </div>
+            </div>
           ) 
           : (
             <div />

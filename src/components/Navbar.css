@@ -1,3 +1,14 @@
+#navbar{
+    display: flex;
+    flex-direction: row;
+}
+
+
+#navBar{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
 #navbar {
     display:flex;
     flex-direction: row;
@@ -14,6 +25,11 @@
     justify-content: space-evenly;
     width: 650px;
    
+
+.rightside{
+    padding: 10px;
+    display: flex;
+}
 }
 
 #wholeContainer {
