@@ -6,15 +6,15 @@ import "./MyRoutines.css"
 import { updateRoutine } from "../api-adapter";
 
 const MyRoutines = (props) => {
-  function submitRoutine() {
+  async function submitRoutine() {
     addRoutine(name, goal, isPublic, setGetRoutinesMessage);
+    let nothing = await getMyRoutines(setMyRoutines)
   }
 
   const [routineID, setRoutineID] = useState("");
   const [updatedName, setUpdatedName] = useState("");
   const [updatedGoal, setUpdatedGoal] = useState("");
 
-  console.log(updatedName, "updated name")
 
   const [name, setname] = useState("");
   const [goal, setgoal] = useState("");
@@ -43,7 +43,7 @@ const MyRoutines = (props) => {
   useEffect(() => {
     async function fetchRoutines() {
       const placeholder = await getMyRoutines(setMyRoutines);
-      console.log(myRoutines, "is all my routines");
+      
     }
     fetchRoutines();
   }, []);
@@ -59,6 +59,7 @@ const MyRoutines = (props) => {
   async function submitUpdate() {
     const tempToken = localStorage.getItem("token")
 const placeholder = await updateRoutine(updatedName, routineID, updatedGoal, tempToken)
+let nothing = await getMyRoutines(setMyRoutines)
   }
 
   async function handleSubmit(event) {
@@ -70,12 +71,14 @@ const placeholder = await updateRoutine(updatedName, routineID, updatedGoal, tem
   async function handleDelete(event) {
     event.preventDefault();
     const toDelete = event.target.id;
-    console.log(toDelete, "to delete");
+   
     const token = localStorage.getItem("token");
     const deleted = await deleteRoutine(toDelete, token, setDeleteMessage);
+    let nothing = await getMyRoutines(setMyRoutines)
+    
   }
 
-  console.log(myRoutines, "this is my routines");
+  
 
   // create routine is workin
   return (

@@ -25,8 +25,8 @@ const LoginPage = ({
     useEffect(() => {
       }, [usernameInput, passwordInput]);
 
-    function submitLogin(){
-      loginUser(usernameInput, passwordInput, setLoginSubmitMessage)
+    async function submitLogin(){
+     await loginUser(usernameInput, passwordInput, setLoginSubmitMessage)
       setRegisterMessage("")
       
     }  

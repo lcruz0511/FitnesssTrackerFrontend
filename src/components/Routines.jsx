@@ -25,7 +25,7 @@ const Routines= (props)=>{
     };
     const filteredRoutines = routines.filter((routine)=> routineMatches(routine, searchTerm));
     const routinesToDisplay = searchTerm.length ? filteredRoutines: routines;
-    console.log(routines, "is routines returned from request")
+ 
 
     return(
         <div>

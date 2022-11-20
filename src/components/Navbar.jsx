@@ -5,6 +5,8 @@ import "./Navbar.css";
 
 const Navbar = () => {
 
+
+
  const [logOutMessage, setLogoutMessage] = useState("")
   
   const tempUsername = localStorage.getItem("username");
@@ -13,6 +15,7 @@ const Navbar = () => {
   function logoutUser() {
     localStorage.setItem("username", "");
     localStorage.setItem("userToken", "");
+    window.location.reload(true)
 
   }
 

@@ -28,7 +28,7 @@ fetch('http://fitnesstrac-kr.herokuapp.com/api/users/register', {
   })
 }).then(response => response.json())
   .then(result => {
-    console.log(result)
+    
     setToken(result.token)
     if (result.token){
         localStorage.removeItem("token");
@@ -66,6 +66,16 @@ export async function loginUser(username, password, setLoginSubmitMessage){
             if (result.message) {
               setLoginSubmitMessage(result.message)
             }
+            if (result.message == "you're logged in!"){
+              setTimeout(() => {
+                window.location.href="/activities"
+                window.location.reload(true)
+               
+
+              }, "1000")
+              
+             
+            }
             localStorage.setItem("username", result.user.username)
           localStorage.setItem("token", result.token)
 
@@ -98,7 +108,7 @@ export async function getActivities(setActivities){
   },
 }).then(response => response.json())
   .then(result => {
-    console.log(result);
+    
     setActivities(result)
     return(result)
   })
@@ -108,7 +118,7 @@ export async function getActivities(setActivities){
 export async function getMyRoutines(setMyRoutines) {
     let tempname = localStorage.getItem("username");
     let temptoken = localStorage.getItem("token");
-    console.log(tempname, temptoken )
+    
 
     fetch(`http://fitnesstrac-kr.herokuapp.com/api/users/${tempname}/routines`, {
         headers: {
@@ -117,7 +127,7 @@ export async function getMyRoutines(setMyRoutines) {
         },
       }).then(response => response.json())
         .then(result => {
-          console.log(result, "result of get my routines");
+         
           setMyRoutines(result)
         })
         .catch(console.error);
@@ -139,7 +149,7 @@ export async function addRoutine(name, goal, isPublic, setGetRoutinesMessage)  {
   })
 }).then(response => response.json())
   .then(result => {
-    console.log(result);
+   
     if (result.error) {
       setGetRoutinesMessage(result.error)
     }
@@ -165,7 +175,7 @@ export async function addActivity(name, description, setAddActivityMessage) {
   })
 }).then(response => response.json())
   .then(result => {
-    console.log(result);
+    
     if (result.error) {
       setAddActivityMessage(result.error)
     }
@@ -185,16 +195,16 @@ export async function deleteRoutine(id, token, setDeleteMessage){
     }
   }).then(response => response.json())
     .then(result => {
-      console.log(result);
+      
       if (result.success == true) {
-        setDeleteMessage("Message deleted succesfully!")
+        setDeleteMessage("Routine deleted succesfully!")
       }
     })
     .catch(console.error);
 }
 
 export async function updateRoutine(name, id, goal, token){
-  console.log(name, id, goal, token, "results passed into the function")
+  
   fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${id}`, {
   method: "PATCH",
   headers:{
@@ -207,12 +217,12 @@ export async function updateRoutine(name, id, goal, token){
   })
 }).then(response => response.json())
   .then(result => {
-    console.log(result);
+    
   })
   .catch(console.error);
 }
 
-export async function updateActivity(id, name, description, token){
+export async function updateActivity(id, name, description, token, setAddActivityMessage){
   fetch(`http://fitnesstrac-kr.herokuapp.com/api/activities/${id}`, {
   method: "PATCH",
   headers:{
@@ -225,7 +235,8 @@ export async function updateActivity(id, name, description, token){
   })
 }).then(response => response.json())
   .then(result => {
-    console.log(result);
+    
+    setAddActivityMessage(result.message)
   })
   .catch(console.error);
 }

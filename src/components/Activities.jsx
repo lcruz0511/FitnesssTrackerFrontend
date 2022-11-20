@@ -7,13 +7,14 @@ import "./Style.css";
 
 const Activities = (props) =>       {
 
-    function submitUpdate() {
+   async function submitUpdate() {
         const tempToken = localStorage.getItem("token")
-        updateActivity(updatedID, updatedName, updatedDescription, tempToken)
+        updateActivity(updatedID, updatedName, updatedDescription, tempToken, setAddActivityMessage)
+        const allActivities= await getActivities(setActivities)
     }
-
-    function submitActivity()   {
+    async function submitActivity()   {
         addActivity(newName, newDescription, setAddActivityMessage)
+        const allActivities= await getActivities(setActivities)
     }
         
     const [activities, setActivities] = useState([]);
@@ -26,13 +27,13 @@ const Activities = (props) =>       {
     const [updatedID, setUpdatedID] = useState("");
     const [updatedName, setUpdatedName] = useState("");
     const [updatedDescription, setUpdatedDescription] = useState("");
-    console.log(updatedName)
+   
     
 
     useEffect(() => {
        async function fetchActivities(){
         const allActivities= await getActivities(setActivities)
-        console.log(activities, "is all activities")
+        
        }
 
         fetchActivities()
