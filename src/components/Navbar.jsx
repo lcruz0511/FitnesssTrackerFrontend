@@ -13,7 +13,6 @@ const Navbar = () => {
   function logoutUser() {
     localStorage.setItem("username", "");
     localStorage.setItem("userToken", "");
-    location.reload();
 
   }
 
@@ -49,9 +48,7 @@ const Navbar = () => {
             <Link to="/myroutines">
               <h2 className="rightside">My Routines</h2>
             </Link>
-            <button onClick={logoutUser}>
-              Logout
-            </button>
+            
             <div>{logOutMessage}
             </div>
             </div>
