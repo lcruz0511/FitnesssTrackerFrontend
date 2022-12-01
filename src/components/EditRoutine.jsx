@@ -1,11 +1,6 @@
-
-
-const EditRoutine = () =>   {
-
-
-
+const EditRoutine=()=>{
     return(
-<h1> hi hi hi hi hi hi hi</h1>
+        <h1>hi hi hi hi hi hi hi</h1>
     )
 }
 

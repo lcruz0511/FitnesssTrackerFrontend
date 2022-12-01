@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Link, NavLink} from "react-router-dom"
-import { getRoutines } from "../api-adapter";
+import { getActivities, getRoutines } from "../api-adapter";
 import "./Style.css"
 
 
@@ -12,8 +12,7 @@ const Routines= (props)=>{
 
     useEffect(()=>{
         async function fetchRoutines(){
-            const allRoutines = await getRoutines(setAllRoutines);
-            
+            const allRoutines = await getRoutines(setAllRoutines);  
         }
         fetchRoutines();
     }, [])
@@ -21,11 +20,10 @@ const Routines= (props)=>{
     function routineMatches(routine, text){
         return(
             routine.name.toLowerCase().includes(text)
-        )
-    };
+            )
+        };
     const filteredRoutines = routines.filter((routine)=> routineMatches(routine, searchTerm));
     const routinesToDisplay = searchTerm.length ? filteredRoutines: routines;
- 
 
     return(
         <div>
@@ -49,9 +47,9 @@ const Routines= (props)=>{
                         <div className="routineBox">
                             <div className="routineName">Name: {routine.name}</div>
                             <div className="routineGoal">Goal: {routine.goal}</div>
-                            <div className="routineName">Creator: {routine.creatorName}</div>
-
-
+                            {/* <form onClick={getActivities}> */}
+                            <div className="routineName">Creator: <Link>{routine.creatorName}</Link></div>
+                            {/* </form> */}
                         </div>
                     )
                 })}
@@ -59,8 +57,6 @@ const Routines= (props)=>{
         </div>
         
     )
-    //There's so much data returned from that fetch request...
-    //gonna have to find a way to only display a certain amount
 }
 
 export default Routines;

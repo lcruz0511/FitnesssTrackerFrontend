@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { loginUser, registerUser } from "../api-adapter";
+import "./LoginPage.css"
 
 const LoginPage = ({
     setUsernameInput,
@@ -36,11 +37,13 @@ const LoginPage = ({
         <div id="wholepage">
       <p>{loginMessage}</p>
       <div id="loginform">
-        <p id="logintag">Login or register below</p>
-        <label id="prompt">Please enter username:</label>
+        <h3>Already have an account? Log in below!</h3>
+        <p id="logintag">Login or register</p>
+        <label id="prompt">Enter Username:</label>
         <br />
         <input
           type="text"
+          placeholder="Username"
           required
           value={usernameInput}
           onChange={(event) => setUsernameInput(event.target.value)}
@@ -48,11 +51,12 @@ const LoginPage = ({
 
         <label>
           <br />
-          Please enter password:
+          Enter Password:
         </label>
         <br />
         <input
           type="text"
+          placeholder="Password"
           required
           value={passwordInput}
           onChange={(event) => setPasswordInput(event.target.value)}

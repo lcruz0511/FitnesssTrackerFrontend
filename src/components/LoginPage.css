@@ -1,0 +1,23 @@
+#wholepage{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+#loginform{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+}
+#logintag{
+   font-size: 18px; 
+   font-weight: 800;
+}
+button{
+    cursor: pointer;
+    margin: 4px 2px;
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+    padding: 5px 15px;
+}

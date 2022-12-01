@@ -1,18 +1,7 @@
-#navbar{
-    display: flex;
-    flex-direction: row;
-}
-
-
-#navBar{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-}
 #navbar {
     display:flex;
     flex-direction: row;
-    background-color: #7777;
+    background-color: black;
     margin-left: -10px;
     padding-left: 22px;
     border-bottom: 2px dashed black;
@@ -21,6 +10,7 @@
 #navBar {
     display:flex;
     flex-direction: row;
+    align-items: center;
     margin-left: 30px;
     justify-content: space-evenly;
     width: 650px;
@@ -34,3 +24,16 @@
     padding: 10px 10px;
     margin-right: -8px;
 }
+
+#logo{
+    font-family: 'Zen Dots', cursive;
+    color: white; 
+    font-size: 30px;
+}
+
+.rightside{
+    font-family: 'Zen Dots', cursive;
+    color: white; 
+    
+}
+

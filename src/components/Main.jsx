@@ -5,7 +5,7 @@ import LoginPage from "./LoginPage";
 import Routines from "./Routines";
 import Activities from "./Activities";
 import MyRoutines from "./MyRoutines";
-import EditRoutine from "./EditRoutine";
+// import EditRoutine from "./EditRoutine";
 
 
 //maybe have use effects here that can be passed to edit post
@@ -53,7 +53,7 @@ const Main = () => {
        
 
          <Route path="/myroutines" element={<MyRoutines />}></Route>
-         <Route path="/EditRoutine" element={<EditRoutine />}></Route>
+         {/* <Route path="/EditRoutine" element={<EditRoutine />}></Route> */}
             {/* <Route
               path="messages"
               element={<Messages loginToken={loginToken} />}

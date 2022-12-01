@@ -1,18 +1,4 @@
-// const baseUrl= "http://localhost:3000/api"
 const baseUrl= "https://fitnesstrac-kr.herokuapp.com/api"
-
-// export async function getRoutines(token){
-//     const options = {
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Authorization": `Bearer ${token}`,
-//         }
-//     }
-//     const response = await fetch(`${baseUrl}/routines`, options);
-//     const result = await response.json();
-//     const routines = result.data.routines;
-//     return routines
-// };
 
 
 export async function registerUser(username, password, setToken, setRegisterMessage){
@@ -92,7 +78,7 @@ export async function getRoutines(setAllRoutines){
         },
       }).then(response => response.json())
         .then(result => {
-        //   console.log(result, "is routines from index.js");
+          console.log(result, "is routines from index.js");
           if (result)   {
             setAllRoutines(result)
             // return(result)
@@ -154,7 +140,7 @@ export async function addRoutine(name, goal, isPublic, setGetRoutinesMessage)  {
       setGetRoutinesMessage(result.error)
     }
     if (result.id)  {
-      setGetRoutinesMessage(`Routine titled ${name} has been succesfully created!`)
+      setGetRoutinesMessage(`Routine title ${name} has been succesfully created!`)
     }
   })
   .catch(console.error);
@@ -180,7 +166,7 @@ export async function addActivity(name, description, setAddActivityMessage) {
       setAddActivityMessage(result.error)
     }
     if (result.id)  {
-      setAddActivityMessage(`Activity "${name}" has been created succesfully!`)
+      setAddActivityMessage(`Activity "${name}" has been created successfully!`)
     }
   })
   .catch(console.error);
@@ -197,7 +183,7 @@ export async function deleteRoutine(id, token, setDeleteMessage){
     .then(result => {
       
       if (result.success == true) {
-        setDeleteMessage("Routine deleted succesfully!")
+        setDeleteMessage("Routine deleted successfully!")
       }
     })
     .catch(console.error);
@@ -237,6 +223,24 @@ export async function updateActivity(id, name, description, token, setAddActivit
   .then(result => {
     
     setAddActivityMessage(result.message)
+  })
+  .catch(console.error);
+}
+
+async function addActivityToRoutine(id, activityId, count, duration){
+fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${id}/activities`, {
+  method: "POST",
+  headers:{
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    activityId,
+    count,
+    duration
+  })
+}).then(response => response.json())
+  .then(result => {
+    console.log(result);
   })
   .catch(console.error);
 }
